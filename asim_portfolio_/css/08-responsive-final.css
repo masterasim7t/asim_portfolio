@@ -51,3 +51,124 @@
 .surname-highlight {
   color: var(--surname-accent);
 }
+
+/* ===== RUBBER NAVIGATION FINAL OVERRIDES ===== */
+
+/* Desktop header */
+@media (min-width: 1001px) {
+  .site-header {
+    display: grid !important;
+    grid-template-columns: 1fr auto 1fr !important;
+    align-items: center;
+    min-height: 80px;
+  }
+
+  .site-header .brand {
+    justify-self: start;
+  }
+
+  .site-header nav.desktop-nav.rubber-nav {
+    display: inline-flex !important;
+    justify-self: center;
+    position: relative;
+    width: max-content;
+    height: auto;
+  }
+
+  .rubber-nav__list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    gap: 4px;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .rubber-nav__list li {
+    display: flex !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .rubber-nav__link {
+    display: inline-flex !important;
+    white-space: nowrap;
+  }
+
+  .site-header .header-actions {
+    justify-self: end;
+  }
+}
+
+/* Remove bullets and default list styling everywhere */
+.rubber-nav__list,
+.rubber-nav__list li {
+  list-style: none !important;
+}
+
+.rubber-nav__list {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ===== TABLET + MOBILE ===== */
+@media (max-width: 1000px) {
+  .site-header {
+    display: flex !important;
+    justify-content: space-between;
+  }
+
+  .site-header .desktop-nav {
+    display: none !important;
+  }
+
+  .site-header .menu-toggle {
+    display: block !important;
+  }
+
+  .mobile-nav.rubber-nav {
+    display: none;
+    position: fixed;
+    top: 68px;
+    left: 0;
+    right: 0;
+    z-index: 150;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0 0 18px 18px;
+    padding: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-direction: row;
+    justify-content: flex-start;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-nav.rubber-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-nav.rubber-nav.open {
+    display: flex !important;
+  }
+
+  .mobile-nav .rubber-nav__list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    width: max-content;
+    min-width: max-content;
+    gap: 3px;
+  }
+
+  .mobile-nav .rubber-nav__link {
+    white-space: nowrap;
+    padding: 11px 13px;
+  }
+}
