@@ -66,12 +66,24 @@
 
 .rubber-nav__goo {
   position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
+  inset: 0;
+  width: 100%;
   height: 100%;
+  z-index: 1;
   pointer-events: none;
   filter: url(#rubber-goo);
+  overflow: visible;
+}
+
+.rubber-nav__pill {
+  position: absolute;
+  top: 6px;
+  height: calc(100% - 12px);
+  border-radius: 999px;
+  background: var(--accent);
+  transition:
+    left .45s cubic-bezier(.34, 1.56, .64, 1),
+    width .45s cubic-bezier(.34, 1.56, .64, 1);
 }
 
 .rubber-nav__pill,
