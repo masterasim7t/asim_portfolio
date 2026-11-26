@@ -1,0 +1,47 @@
+ASIM PORTFOLIO — FILE GUIDE
+===========================
+
+index.html
+  Main page structure and the ordered links to the CSS and JavaScript section files.
+
+css/
+  01-global-base-header-buttons.css
+    Shared variables, base page rules, reveal effect, progress bar, header, navigation and buttons.
+  02-hero-about-skills.css
+    Landing/hero, About and Skills sections.
+  03-experience-roadmap.css
+    Experience timeline and experience roadmap styling.
+  04-projects.css
+    Projects section and project card styling.
+  05-certifications-carousel.css
+    Certification cards, 3D carousel and carousel controls.
+  06-responsive-tablet-mobile.css
+    Tablet and mobile responsive rules.
+  07-education-contact-effects-dialog.css
+    Education, contact/footer, cursor trail and project dialog styling.
+  08-responsive-final.css
+    Final responsive overrides; keep loaded last.
+
+js/
+  01-theme-navigation-scroll-reveal.js
+    Theme toggle, mobile navigation and reveal-on-scroll.
+  02-certification-carousel.js
+    Certification carousel controls, keyboard navigation and autoplay.
+  03-education-animation.js
+    Education graph animation and replay.
+  04-scroll-progress-footer-year.js
+    Scroll progress and current footer year.
+  05-experience-roadmap-animation.js
+    Experience roadmap animation and text decoding.
+  06-projects-scroll-animation.js
+    Project cards scroll animation.
+  07-contact-cursor-effect.js
+    Contact section cursor trail.
+  08-project-case-study-dialog.js
+    Project case-study dialog content and open/close behavior.
+
+assets/
+  Empty folders only, ready for your images, fonts, videos and documents.
+
+pages/
+  Existing page files copied unchanged.
