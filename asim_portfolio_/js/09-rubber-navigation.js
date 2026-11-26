@@ -36,6 +36,7 @@
 
     const goo = document.createElement('div');
     goo.className = 'rubber-nav__goo';
+    goo.style.filter = 'url(#rubber-goo)';
 
     const pill = document.createElement('span');
     pill.className = 'rubber-nav__pill';
