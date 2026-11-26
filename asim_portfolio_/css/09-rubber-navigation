@@ -1,22 +1,27 @@
-/* Rubber / gooey navigation — plain CSS, no React needed */
+
+/* Rubber / gooey navigation */
 .rubber-nav {
   --rn-pill: #f4f4f5;
   --rn-ink: rgba(244, 244, 245, 0.7);
   --rn-ink-active: #18161d;
+
   position: relative;
   display: inline-block;
   padding: 6px;
   border-radius: 999px;
   background: rgba(38, 35, 46, 0.66);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 20px 40px -20px rgba(0, 0, 0, 0.8);
-  -webkit-backdrop-filter: blur(16px);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08),
+    0 20px 40px -20px rgba(0,0,0,.8);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .rubber-nav__list {
   position: relative;
   z-index: 2;
   display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 4px;
   margin: 0;
   padding: 0;
@@ -31,14 +36,23 @@
   font: 500 14px/1.2 system-ui, sans-serif;
   text-decoration: none;
   white-space: nowrap;
-  transition: color 0.25s ease;
+  transition: color .25s ease;
+  cursor: pointer;
 }
 
-.rubber-nav__link:hover { color: #fff; }
-.rubber-nav__link.is-active { color: var(--rn-ink-active); }
-.rubber-nav__link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.rubber-nav__link:hover {
+  color: #fff;
+}
 
-/* The goo layer sits behind the links; the filter merges pill + droplets */
+.rubber-nav__link.is-active {
+  color: var(--rn-ink-active);
+}
+
+.rubber-nav__link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
 .rubber-nav__goo {
   position: absolute;
   inset: 0;
@@ -58,10 +72,12 @@
   top: 6px;
   height: calc(100% - 12px);
   transition:
-    left 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
-    width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    left .45s cubic-bezier(.34,1.56,.64,1),
+    width .45s cubic-bezier(.34,1.56,.64,1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rubber-nav__pill { transition: none; }
+  .rubber-nav__pill {
+    transition: none;
+  }
 }
