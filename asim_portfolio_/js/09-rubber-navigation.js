@@ -5,6 +5,8 @@
     '(prefers-reduced-motion: reduce)'
   ).matches;
 
+  const navInstances = [];
+
   function addFilter() {
     if (document.getElementById('rubber-goo')) return;
 
@@ -36,7 +38,6 @@
 
     const goo = document.createElement('div');
     goo.className = 'rubber-nav__goo';
-    goo.style.filter = 'url(#rubber-goo)';
 
     const pill = document.createElement('span');
     pill.className = 'rubber-nav__pill';
@@ -54,7 +55,7 @@
       const r = link.getBoundingClientRect();
 
       return {
-        left: r.left - n.left,
+        left: r.left - n.left + nav.scrollLeft,
         width: r.width
       };
     }
@@ -62,6 +63,23 @@
     function place(left, width) {
       pill.style.left = left + 'px';
       pill.style.width = width + 'px';
+    }
+
+    function sync() {
+      if (!nav.getClientRects().length || nav.clientWidth === 0) {
+        return;
+      }
+
+      goo.style.width = nav.scrollWidth + 'px';
+
+      const b = box(links[active]);
+
+      pill.style.transition = 'none';
+      place(b.left, b.width);
+
+      void pill.offsetWidth;
+
+      pill.style.transition = '';
     }
 
     function spray(from, to) {
@@ -110,13 +128,18 @@
       }
     }
 
-    function select(index) {
-      if (index === active) return;
+    function select(index, animate = true) {
+      if (index < 0 || index >= links.length) return;
+
+      if (index === active) {
+        sync();
+        return;
+      }
 
       const from = box(links[active]);
       const to = box(links[index]);
 
-      if (!reduced) {
+      if (animate && !reduced) {
         const left = Math.min(from.left, to.left);
         const right = Math.max(
           from.left + from.width,
@@ -128,11 +151,11 @@
         setTimeout(() => {
           place(to.left, to.width);
         }, 130);
+
+        spray(from, to);
       } else {
         place(to.left, to.width);
       }
-
-      spray(from, to);
 
       links[active].classList.remove('is-active');
       links[active].removeAttribute('aria-current');
@@ -143,24 +166,48 @@
       active = index;
     }
 
-    links.forEach((link, i) => {
-      link.addEventListener('click', () => select(i));
+    const instance = {
+      nav,
+      links,
+      select,
+      sync
+    };
+
+    navInstances.push(instance);
+
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        const target = link.getAttribute('href');
+
+        // Update both desktop and mobile navigation.
+        navInstances.forEach(other => {
+          const matchingIndex = other.links.findIndex(
+            item => item.getAttribute('href') === target
+          );
+
+          if (matchingIndex !== -1) {
+            other.select(matchingIndex, other.nav === nav);
+          }
+        });
+      });
     });
 
-    function sync() {
-      pill.style.transition = 'none';
-
-      const b = box(links[active]);
-      place(b.left, b.width);
-
-      void pill.offsetWidth;
-      pill.style.transition = '';
-    }
-
+    // Initial active state.
     links[active].classList.add('is-active');
     links[active].setAttribute('aria-current', 'page');
 
     sync();
+
+    // Recalculate when the mobile menu opens/closes.
+    const observer = new MutationObserver(sync);
+
+    observer.observe(nav, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    // Keep animation aligned after scrolling horizontally.
+    nav.addEventListener('scroll', sync, { passive: true });
 
     window.addEventListener('resize', sync);
 
@@ -173,5 +220,16 @@
     addFilter();
 
     document.querySelectorAll('.rubber-nav').forEach(init);
+
+    // Sync both navigation bars after the mobile menu opens.
+    const menuToggle = document.getElementById('menuToggle');
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => {
+        requestAnimationFrame(() => {
+          navInstances.forEach(instance => instance.sync());
+        });
+      });
+    }
   });
 })();
