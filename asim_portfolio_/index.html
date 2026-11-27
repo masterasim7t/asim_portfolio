@@ -34,96 +34,54 @@
   
 </head>
 <body>
-  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
-  
-<section class="section section-dark" id="experience">
-  <div class="section-wrap">
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
-    <div class="section-heading reveal">
-      <p class="eyebrow">WHERE I'VE LEARNED</p>
-      <h2>Experience that<br><em>shapes perspective.</em></h2>
-      <p class="section-lead">
-        Internships and freelance work that helped me connect learning with practical work. (Sample content.)
-      </p>
-    </div>
+<header class="site-header">
+  <a class="brand" href="#home">SA<span>.</span></a>
 
-    <div class="exp-grid">
+  <nav class="desktop-nav rubber-nav" aria-label="Main navigation">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Journey</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-      <div class="exp-list">
+  <div class="header-actions">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+      <span class="theme-icon">☾</span>
+    </button>
 
-        <article class="exp-item reveal">
-          <span class="exp-date">JAN — MAR 2025</span>
-          <span class="exp-type">INTERNSHIP · OPERATIONS</span>
-          <h3>Operations Intern</h3>
-          <h4>Example Company A</h4>
-          <ul>
-            <li>Tracked daily orders and flagged delays in a shared sheet.</li>
-            <li>Wrote simple checklists that shortened onboarding for new staff.</li>
-            <li>Supported the team with weekly status reports.</li>
-          </ul>
-        </article>
+    <a class="call-cta call-cta--small" href="tel:+918374104569">
+      <span class="call-cta__handle">
+        <svg class="call-cta__arrow" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
+        </svg>
+        <svg class="call-cta__phone" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 3h4l2 5-3 2a15 15 0 0 0 6 6l2-3 5 2v4c0 1-1 2-2 2C10 21 3 14 3 5c0-1 1-2 2-2z"/>
+        </svg>
+      </span>
+      <span class="call-cta__label">Let's talk</span>
+    </a>
 
-        <article class="exp-item reveal">
-          <span class="exp-date">JUN — AUG 2025</span>
-          <span class="exp-type">INTERNSHIP · ANALYTICS</span>
-          <h3>Business Analyst Intern</h3>
-          <h4>Example Company B</h4>
-          <ul>
-            <li>Cleaned sales data and built a monthly performance summary.</li>
-            <li>Compared customer segments to suggest two pricing experiments.</li>
-            <li>Presented findings to a small cross-functional team.</li>
-          </ul>
-        </article>
-
-        <article class="exp-item reveal">
-          <span class="exp-date">VIRTUAL EXPERIENCE</span>
-          <span class="exp-type">VIRTUAL INTERNSHIP</span>
-          <h3>Consulting Job Simulation</h3>
-          <h4>Sample Consulting Group</h4>
-          <p>Completed placeholder case tasks on market sizing and client communication, gaining introductory exposure to consulting workflows.</p>
-        </article>
-
-        <article class="exp-item reveal">
-          <span class="exp-date">FREELANCE</span>
-          <span class="exp-type">SOCIAL MEDIA · CAMPAIGNS</span>
-          <h3>Freelance Social Media Marketer</h3>
-          <h4>Independent</h4>
-          <p>Planned and ran small social campaigns for local businesses, mixing content calendars, simple creatives and weekly reporting. Featured work: Bloom Café.</p>
-          <a class="text-link" href="#featured-project">Explore Bloom Café <span>↗</span></a>
-        </article>
-
-      </div>
-
-      <div class="roadmap" id="roadmap" role="group" aria-label="Experience roadmap: Operations Intern, Business Analyst Intern, consulting job simulation, and freelance Social Media Marketer">
-
-        <div class="rm-stage">
-          <svg viewBox="0 0 600 340" aria-hidden="true">
-            <path id="rmRoad" class="rm-road" d="M30 270 C130 270 150 110 270 110 S400 260 470 250 S540 80 575 50"/>
-            <path class="rm-dash" d="M30 270 C130 270 150 110 270 110 S400 260 470 250 S540 80 575 50"/>
-            <path id="rmFill" class="rm-fill" d="M30 270 C130 270 150 110 270 110 S400 260 470 250 S540 80 575 50"/>
-            <circle class="rm-node" r="9"/>
-            <circle class="rm-node" r="9"/>
-            <circle class="rm-node" r="9"/>
-            <circle class="rm-node" r="9"/>
-            <g id="rmMarker" class="rm-marker">
-              <circle class="rm-halo" r="17"/>
-              <circle class="rm-dot" r="7"/>
-            </g>
-          </svg>
-
-          <div class="rm-label below"><span class="rm-date">JAN — MAR 2025</span></div>
-          <div class="rm-label above"><span class="rm-date">JUN — AUG 2025</span></div>
-          <div class="rm-label below"><span class="rm-date">VIRTUAL</span></div>
-          <div class="rm-label above edge-r"><span class="rm-date">FREELANCE</span></div>
-        </div>
-
-        <button class="rm-replay" id="rmReplay" type="button">Replay ↺</button>
-
-      </div>
-
-    </div>
+    <button class="menu-toggle" id="menuToggle" type="button"
+      aria-label="Open navigation" aria-expanded="false">
+      <i></i><i></i>
+    </button>
   </div>
-</section>
+
+  <nav class="mobile-nav rubber-nav" id="mobileNav" aria-label="Mobile navigation">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Journey</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>  
 
         <section class="hero section-wrap" id="home">
       <div class="hero-left reveal">
