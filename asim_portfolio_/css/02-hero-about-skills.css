@@ -1,7 +1,7 @@
 /* hero */
 .hero{min-height:100svh;display:grid;grid-template-columns:1.2fr 1fr;align-items:center;gap:clamp(16px,3vw,48px);width:min(1320px,calc(100% - 40px));margin:0 auto;padding:78px 0 50px;position:relative}
 .status-dot{width:9px;height:9px;border-radius:50%;background:#35c27a;box-shadow:0 0 0 5px rgba(53,194,122,.2)}
-.hero h1{font-size:clamp(2.8rem,7vw,5.6rem);font-weight:800}
+.hero h1{font-size:clamp(2.2rem,4.6vw,3.8rem);font-weight:800;line-height:1.1}
 .name-highlight{color:var(--accent)}
 .hero-role{font-weight:700;color:var(--accent);margin-bottom:.8rem}
 .hero-role b{color:var(--muted);margin:0 4px}
