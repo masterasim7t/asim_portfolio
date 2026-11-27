@@ -7,7 +7,6 @@
   --gn-x: 16px;
   --gn-y: 9px;
   position: relative;
-  display: inline-flex;
   max-width: 100%;
   padding: var(--gn-pad);
   background: none;
@@ -16,6 +15,9 @@
   font-size: var(--gn-font);
   line-height: 1.2;
 }
+
+/* Zero-specificity display, so your site's own "hide desktop nav on small screens" rule still wins */
+:where(.gooey-nav) { display: inline-flex; }
 
 .gooey-nav--sm { --gn-pad: 5px; --gn-gap: 2px; --gn-font: 13px; --gn-x: 13px; --gn-y: 7px; }
 .gooey-nav--lg { --gn-pad: 7px; --gn-gap: 6px; --gn-font: 16px; --gn-x: 20px; --gn-y: 11px; }
@@ -98,4 +100,9 @@
 
 @media (hover: hover) {
   .gooey-nav .gooey-nav__link:hover { color: var(--gn-ink); }
+}
+
+/* Keep the mobile menu hidden unless the hamburger button has opened it */
+body:has(#menuToggle[aria-expanded="false"]) .mobile-nav {
+  display: none !important;
 }
