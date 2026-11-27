@@ -44,7 +44,7 @@
 .hero-particle-text {
   position: relative;
   width: min(100%, 540px);
-  height: 78px;
+  height: 90px;
   margin: 1.6rem 0 .8rem;
   overflow: hidden;
 }
@@ -70,6 +70,6 @@
 
 @media (max-width: 639px) {
   .hero-particle-text {
-    height: 68px;
+    height: 76px;
   }
 }
