@@ -116,3 +116,37 @@
 @media (max-width: 639px) {
   .call-cta--small { --cta-w: 144px; --cta-h: 40px; --cta-handle: 48px; font-size: 0.85rem; }
 }
+
+/* ===== Header CTA alignment fix ===== */
+
+@media (min-width: 900px) {
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .site-header > .brand {
+    flex: 0 0 auto;
+  }
+
+  .site-header > .desktop-nav {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: center;
+    margin: 0 12px;
+  }
+
+  .site-header > .call-cta {
+    flex: 0 0 auto;
+    width: 168px;
+    max-width: 168px;
+  }
+
+  .site-header > .theme-toggle,
+  .site-header > .header-actions {
+    flex: 0 0 auto;
+  }
+}
