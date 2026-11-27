@@ -49,16 +49,21 @@
 .gooey-nav .gooey-nav__list {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;            /* never wrap onto a second row */
   gap: var(--gn-gap);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* The white-text copy must sit exactly on top of the real list, never below it */
 .gooey-nav .gooey-nav__list--active {
-  position: absolute;
-  inset: 0;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  margin: 0 !important;
   color: var(--gn-active-ink);
   visibility: hidden;
   clip-path: inset(100%);
