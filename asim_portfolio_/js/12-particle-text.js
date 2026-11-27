@@ -1,12 +1,10 @@
 
 (() => {
-  const canvas = document.getElementById("heroParticleCanvas");
-  const wrapper = document.getElementById("heroParticleText");
+  const wrapper = document.getElementById("heroShuffleText");
+  if (!wrapper) return;
 
-  if (!canvas || !wrapper) return;
-
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
+  const textElement = wrapper.querySelector(".shuffle-text");
+  if (!textElement) return;
 
   const words = [
     "Marketing Analyst",
@@ -18,147 +16,97 @@
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  const accent = getComputedStyle(document.documentElement)
-    .getPropertyValue("--accent").trim() || "#800000";
-
-  const pink = getComputedStyle(document.documentElement)
-    .getPropertyValue("--surname-accent").trim() || "#FFC0CB";
-
-  let width = 0;
-  let height = 0;
-  let particles = [];
   let wordIndex = 0;
-  let lastChange = 0;
-  let animationId;
+  let timer = null;
+  let isAnimating = false;
 
-  const sampleCanvas = document.createElement("canvas");
-  const sampleCtx = sampleCanvas.getContext("2d");
+  const duration = 350;
+  const stagger = 30;
 
-  function getPoints(word) {
-    sampleCanvas.width = width;
-    sampleCanvas.height = height;
+  function renderWord(word) {
+    textElement.replaceChildren();
 
-    sampleCtx.clearRect(0, 0, width, height);
+    [...word].forEach(char => {
+      const span = document.createElement("span");
+      span.className = "shuffle-char";
+      span.textContent = char === " " ? "\u00A0" : char;
+      textElement.appendChild(span);
+    });
+  }
 
-    let fontSize = Math.min(34, width / (word.length * 0.57));
-    fontSize = Math.max(19, fontSize);
+  function shuffleToNextWord() {
+    if (isAnimating) return;
 
-    sampleCtx.font = `700 ${fontSize}px "DM Sans", sans-serif`;
-    sampleCtx.textAlign = "center";
-    sampleCtx.textBaseline = "middle";
-    sampleCtx.fillStyle = "#fff";
-    sampleCtx.fillText(word, width / 2, height / 2);
+    isAnimating = true;
 
-    const pixels = sampleCtx.getImageData(0, 0, width, height).data;
-    const points = [];
-    const spacing = 2;
+    const nextIndex = (wordIndex + 1) % words.length;
+    const nextWord = words[nextIndex];
 
-    for (let y = 0; y < height; y += spacing) {
-      for (let x = 0; x < width; x += spacing) {
-        const alpha = pixels[(y * width + x) * 4 + 3];
+    const oldChars = [...textElement.querySelectorAll(".shuffle-char")];
+    const maxLength = Math.max(oldChars.length, nextWord.length);
 
-        if (alpha > 100) {
-          points.push({ x, y });
+    const fragments = [];
+
+    for (let i = 0; i < maxLength; i++) {
+      const span = oldChars[i] || document.createElement("span");
+      span.className = "shuffle-char";
+      span.textContent = span.textContent || "\u00A0";
+      fragments.push(span);
+    }
+
+    textElement.replaceChildren(...fragments);
+
+    fragments.forEach((span, index) => {
+      const target = nextWord[index] || "";
+      const start = performance.now() + index * stagger;
+
+      function animate(now) {
+        if (now < start) {
+          requestAnimationFrame(animate);
+          return;
         }
-      }
-    }
 
-    return points;
-  }
-
-  function makeParticles(points, oldParticles = []) {
-    const count = Math.max(points.length, oldParticles.length);
-    const result = [];
-
-    for (let i = 0; i < count; i++) {
-      const target = points[i % points.length];
-      const old = oldParticles[i];
-
-      result.push({
-        x: old ? old.x : Math.random() * width,
-        y: old ? old.y : Math.random() * height,
-        startX: old ? old.x : Math.random() * width,
-        startY: old ? old.y : Math.random() * height,
-        targetX: target.x,
-        targetY: target.y,
-        radius: 1.2 + Math.random() * 0.8,
-        color: i % 4 === 0 ? pink : accent
-      });
-    }
-
-    return result;
-  }
-
-  function resize() {
-    const rect = wrapper.getBoundingClientRect();
-    if (!rect.width) return;
-
-    width = rect.width;
-    height = rect.height;
-
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    const points = getPoints(words[wordIndex]);
-    particles = makeParticles(points);
-    lastChange = performance.now();
-
-    wrapper.querySelector("canvas").classList.add("is-ready");
-  }
-
-  function draw(time) {
-    ctx.clearRect(0, 0, width, height);
-
-    const elapsed = time - lastChange;
-    const transitionDuration = 1000;
-    const holdDuration = 1900;
-
-    if (!reduceMotion && elapsed > holdDuration) {
-      if (elapsed < holdDuration + transitionDuration) {
-        const progress = Math.min(
-          1,
-          (elapsed - holdDuration) / transitionDuration
-        );
-
+        const progress = Math.min(1, (now - start) / duration);
         const eased = 1 - Math.pow(1 - progress, 3);
 
-        particles.forEach(p => {
-          p.x = p.startX + (p.targetX - p.startX) * eased;
-          p.y = p.startY + (p.targetY - p.startY) * eased;
-        });
-      } else {
-        wordIndex = (wordIndex + 1) % words.length;
+        if (progress < 1) {
+          span.style.transform = `translateY(${(1 - eased) * 18}px)`;
+          span.style.opacity = eased;
 
-        const points = getPoints(words[wordIndex]);
-        particles = makeParticles(points, particles);
-        lastChange = time;
+          if (Math.random() < 0.35) {
+            span.textContent = String.fromCharCode(
+              65 + Math.floor(Math.random() * 26)
+            );
+          }
+
+          requestAnimationFrame(animate);
+        } else {
+          span.textContent = target === " " ? "\u00A0" : target;
+          span.style.transform = "";
+          span.style.opacity = "";
+        }
       }
-    }
 
-    particles.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
+      span.style.opacity = "0";
+      requestAnimationFrame(animate);
     });
 
-    if (!reduceMotion) {
-      animationId = requestAnimationFrame(draw);
-    }
+    const totalTime = duration + maxLength * stagger;
+
+    window.setTimeout(() => {
+      wordIndex = nextIndex;
+      renderWord(nextWord);
+      isAnimating = false;
+    }, totalTime + 50);
   }
 
-  document.fonts.ready.then(() => {
-    resize();
-    draw(performance.now());
-  });
+  renderWord(words[wordIndex]);
 
-  window.addEventListener("resize", () => {
-    cancelAnimationFrame(animationId);
-    resize();
-    draw(performance.now());
+  if (reduceMotion) return;
+
+  timer = window.setInterval(shuffleToNextWord, 3500);
+
+  wrapper.addEventListener("mouseenter", () => {
+    if (!isAnimating) shuffleToNextWord();
   });
 })();
