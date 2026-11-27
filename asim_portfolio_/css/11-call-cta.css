@@ -99,3 +99,20 @@
   .call-cta__phone { transition: none; }
   .call-cta.is-called .call-cta__phone { animation: none; }
 }
+
+/* Small version for the header */
+.call-cta--small {
+  --cta-w: 168px;
+  --cta-h: 44px;
+  --cta-pad: 3px;
+  --cta-handle: 56px;
+  font-size: 0.9rem;
+}
+.call-cta--small .call-cta__arrow,
+.call-cta--small .call-cta__phone {
+  width: 18px;
+  height: 18px;
+}
+@media (max-width: 639px) {
+  .call-cta--small { --cta-w: 144px; --cta-h: 40px; --cta-handle: 48px; font-size: 0.85rem; }
+}
