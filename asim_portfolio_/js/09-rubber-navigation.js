@@ -9,7 +9,7 @@
     spread: 56,         // how far droplets scatter, px
     gooeyness: 0.5,     // 0..1
     wobble: 0.5,        // 0..1
-    hoverEffect: true   // soft highlight behind the hovered item
+    hoverEffect: false  // soft grey highlight behind the hovered item (set true to turn on)
   };
 
   const THEMES = {
@@ -280,6 +280,8 @@ void main() {
         left: `${-MARGIN}px`, top: `${-MARGIN}px`,
         width: `${outerWidth}px`, height: `${outerHeight}px`
       });
+      // Site-wide resets like "canvas { max-width: 100% }" would squash the drawing and shift the pill
+      ['max-width', 'max-height'].forEach(prop => canvas.style.setProperty(prop, 'none', 'important'));
       const width = Math.max(1, Math.round(outerWidth * ratio));
       const height = Math.max(1, Math.round(outerHeight * ratio));
       if (canvas.width !== width || canvas.height !== height) {
