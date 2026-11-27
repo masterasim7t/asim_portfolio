@@ -54,14 +54,64 @@
 
 /* ===== RUBBER NAVIGATION FINAL OVERRIDES ===== */
 
-/* Desktop header */
+
+/* ===== DESKTOP HEADER LAYOUT ===== */
 @media (min-width: 1001px) {
   .site-header {
     display: grid !important;
-    grid-template-columns: 1fr auto 1fr !important;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
+    column-gap: clamp(12px, 2vw, 28px);
     min-height: 80px;
+    width: 100%;
   }
+
+  .site-header > .brand {
+    justify-self: start;
+  }
+
+  .site-header > nav.desktop-nav.rubber-nav {
+    display: inline-flex !important;
+    justify-self: center;
+    position: relative;
+    width: max-content;
+    max-width: 100%;
+    height: auto;
+    min-width: 0;
+  }
+
+  .site-header > .call-cta {
+    justify-self: end;
+    flex: none;
+    width: 168px;
+    max-width: 168px;
+    min-width: 0;
+  }
+
+  .rubber-nav__list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    gap: 4px;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .rubber-nav__list li {
+    display: flex !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .rubber-nav__link {
+    display: inline-flex !important;
+    white-space: nowrap;
+  }
+}
+
 
   .site-header .brand {
     justify-self: start;
