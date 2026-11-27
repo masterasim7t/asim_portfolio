@@ -51,7 +51,7 @@
 
     const pixels = sampleCtx.getImageData(0, 0, width, height).data;
     const points = [];
-    const spacing = 4;
+    const spacing = 2;
 
     for (let y = 0; y < height; y += spacing) {
       for (let x = 0; x < width; x += spacing) {
@@ -81,7 +81,7 @@
         startY: old ? old.y : Math.random() * height,
         targetX: target.x,
         targetY: target.y,
-        radius: 1.5 + Math.random() * 1.1,
+        radius: 1.2 + Math.random() * 0.8,
         color: i % 4 === 0 ? pink : accent
       });
     }
