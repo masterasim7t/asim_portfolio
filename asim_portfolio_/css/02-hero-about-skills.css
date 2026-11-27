@@ -40,4 +40,36 @@
 .skill-group-head span{width:10px;height:10px;border-radius:50%;background:var(--accent)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips span{transition:background .3s,border-color .3s,color .3s;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.85rem;font-weight:500;background:var(--bg)}
+/* ===== Hero particle text animation ===== */
+.hero-particle-text {
+  position: relative;
+  width: min(100%, 540px);
+  height: 78px;
+  margin: 1.6rem 0 .8rem;
+  overflow: hidden;
+}
 
+#heroParticleCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-particle-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  font: 700 clamp(21px, 3vw, 32px)/1.2 var(--font-head);
+  color: var(--accent);
+}
+
+.hero-particle-text:has(canvas.is-ready) .hero-particle-fallback {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .hero-particle-text {
+    height: 68px;
+  }
+}
