@@ -1,0 +1,101 @@
+/* "Let's talk" call button — dark pill with a green handle that slides across and rings */
+.call-cta {
+  --cta-w: 260px;
+  --cta-h: 56px;
+  --cta-pad: 4px;            /* gap between the pill edge and the green handle */
+  --cta-handle: 100px;       /* resting width of the green handle */
+  --cta-green: #2efc49;
+  --cta-dark: #1f1f1f;
+  --cta-ease: cubic-bezier(0.65, 0, 0.2, 1);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--cta-w);
+  height: var(--cta-h);
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--cta-dark);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.call-cta:focus-visible { outline: 2px solid var(--cta-green); outline-offset: 3px; }
+
+/* Label sits centered in the space to the right of the handle */
+.call-cta__label {
+  padding-left: calc(var(--cta-handle) + var(--cta-pad) * 2);
+  transition: opacity 0.25s ease;
+}
+
+.call-cta__handle {
+  position: absolute;
+  top: var(--cta-pad);
+  bottom: var(--cta-pad);
+  left: var(--cta-pad);
+  width: var(--cta-handle);
+  border-radius: 999px;
+  background: var(--cta-green);
+  transition:
+    width 0.42s var(--cta-ease),
+    left 0.42s var(--cta-ease),
+    top 0.42s var(--cta-ease),
+    bottom 0.42s var(--cta-ease);
+}
+
+.call-cta__arrow,
+.call-cta__phone {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 22px;
+  height: 22px;
+  color: #101010;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity 0.25s ease, transform 0.35s var(--cta-ease);
+}
+.call-cta__phone { opacity: 0; transform: scale(0.6); }
+
+/* Called state */
+.call-cta.is-called .call-cta__handle {
+  left: 2px;
+  top: 2px;
+  bottom: 2px;
+  width: calc(100% - 4px);
+}
+.call-cta.is-called .call-cta__label { opacity: 0; }
+.call-cta.is-called .call-cta__arrow { opacity: 0; transform: translateX(14px) scale(0.8); }
+.call-cta.is-called .call-cta__phone {
+  opacity: 1;
+  transform: scale(1);
+  animation: call-ring 0.7s 0.3s ease-in-out infinite;
+}
+
+@keyframes call-ring {
+  0%, 60%, 100% { transform: rotate(0); }
+  10% { transform: rotate(-14deg); }
+  20% { transform: rotate(12deg); }
+  30% { transform: rotate(-10deg); }
+  40% { transform: rotate(8deg); }
+  50% { transform: rotate(-4deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .call-cta__handle,
+  .call-cta__label,
+  .call-cta__arrow,
+  .call-cta__phone { transition: none; }
+  .call-cta.is-called .call-cta__phone { animation: none; }
+}
