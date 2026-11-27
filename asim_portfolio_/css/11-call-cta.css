@@ -145,6 +145,46 @@
     max-width: 168px;
   }
 
+/* ===== CALL CTA: DESKTOP + MOBILE ===== */
+
+@media (max-width: 1000px) {
+  .site-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .site-header > .brand {
+    flex: 0 0 auto;
+  }
+
+  .site-header > .call-cta {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 144px;
+    max-width: 144px;
+    height: 40px;
+    margin-left: auto;
+  }
+
+  .mobile-nav {
+    top: 68px;
+  }
+}
+
+@media (max-width: 639px) {
+  .site-header {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .site-header > .call-cta {
+    width: 144px;
+    max-width: 144px;
+  }
+}
+
   .site-header > .theme-toggle,
   .site-header > .header-actions {
     flex: 0 0 auto;
